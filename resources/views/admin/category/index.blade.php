@@ -30,18 +30,6 @@
                                 <input class="form-control" id="firstName" name="name" placeholder="Category Name" type="text">
                             </div>
                         </div>
-                        <div class="row mb-4">
-                            <label for="lastName" class="col-md-3 form-label">Category Description</label>
-                            <div class="col-md-9">
-                                <textarea class="form-control" name="description" placeholder="Category Description"></textarea>
-                            </div>
-                        </div>
-                        <div class="row mb-4">
-                            <label for="image" class="col-md-3 form-label">Category Image</label>
-                            <div class="col-md-9">
-                                <input class="form-control" id="image" name="image" type="file">
-                            </div>
-                        </div>
                         <button class="btn btn-primary" type="submit">Create New Category</button>
                     </form>
                 </div>

@@ -1,12 +1,11 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\WebsiteController;
+use App\Http\Controllers\BlogController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\TeacherController;
-use App\Http\Controllers\TeacherDashboardController;
-use App\Http\Controllers\CourseController;
+use App\Http\Controllers\SubcategoryController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,29 +18,16 @@ use App\Http\Controllers\CourseController;
 |
 */
 
-Route::get('/', [WebsiteController::class, 'index'])->name('home');
-Route::get('/about-us', [WebsiteController::class, 'about'])->name('about');
-Route::get('/all-courses', [WebsiteController::class, 'course'])->name('course');
-Route::get('/courses-detail', [WebsiteController::class, 'detail'])->name('course-detail');
-Route::get('/contact-us', [WebsiteController::class, 'contact'])->name('contact');
-Route::get('/user-login', [WebsiteController::class, 'login'])->name('user-login');
-Route::get('/user-registration', [WebsiteController::class, 'registration'])->name('user-registration');
+Route::get('/dashboard', [DashboardController::class, 'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
 
-Route::middleware(['teacher'])->group(function () {
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::get('/teacher/dashboard', [TeacherDashboardController::class, 'index'])->name('teacher.dashboard');
-    Route::post('/teacher/logout', [TeacherDashboardController::class, 'logout'])->name('teacher.logout');
-
-    Route::resource('course', CourseController::class);
-
-
-});
-
-
-
-Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])->group(function () {
-
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::get('/category/add', [CategoryController::class, 'index'])->name('category.add');
     Route::post('/category/new', [CategoryController::class, 'create'])->name('category.new');
@@ -50,5 +36,9 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])-
     Route::post('/category/update/{id}', [CategoryController::class, 'update'])->name('category.update');
     Route::get('/category/delete/{id}', [CategoryController::class, 'delete'])->name('category.delete');
 
-    Route::resource('teacher', TeacherController::class);
+    Route::resource('subcategory', SubcategoryController::class);
+    Route::resource('blog', BlogController::class);
+//});
 });
+
+require __DIR__.'/auth.php';

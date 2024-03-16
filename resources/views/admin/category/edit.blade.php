@@ -30,19 +30,6 @@
                                 <input class="form-control" id="firstName" value="{{$category->name}}" name="name" placeholder="Category Name" type="text">
                             </div>
                         </div>
-                        <div class="row mb-4">
-                            <label for="lastName" class="col-md-3 form-label">Category Description</label>
-                            <div class="col-md-9">
-                                <textarea class="form-control" name="description" placeholder="Category Description">{{$category->description}}</textarea>
-                            </div>
-                        </div>
-                        <div class="row mb-4">
-                            <label for="image" class="col-md-3 form-label">Category Image</label>
-                            <div class="col-md-9">
-                                <input class="form-control" id="image" name="image" type="file">
-                                <img src="{{asset($category->image)}}" alt="" height="100" width="100"/>
-                            </div>
-                        </div>
                         <button class="btn btn-primary" type="submit">Update Category Info</button>
                     </form>
                 </div>
